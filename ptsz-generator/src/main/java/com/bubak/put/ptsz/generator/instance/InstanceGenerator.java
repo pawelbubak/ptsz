@@ -1,7 +1,7 @@
-package com.bubak.put.ptsz.generator;
+package com.bubak.put.ptsz.generator.instance;
 
-import com.bubak.put.ptsz.core.Instance;
-import com.bubak.put.ptsz.core.Task;
+import com.bubak.put.ptsz.core.model.Instance;
+import com.bubak.put.ptsz.core.model.Task;
 import com.bubak.put.ptsz.generator.util.RandomUtil;
 import com.bubak.put.ptsz.generator.util.Util;
 

@@ -1,7 +1,7 @@
 package com.bubak.put.ptsz.generator.util;
 
-import com.bubak.put.ptsz.core.Task;
-import com.bubak.put.ptsz.generator.config.Config;
+import com.bubak.put.ptsz.core.model.Task;
+import com.bubak.put.ptsz.core.config.Config;
 
 import java.util.List;
 

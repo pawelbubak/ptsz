@@ -1,11 +1,12 @@
 package com.bubak.put.ptsz.generator;
 
-import com.bubak.put.ptsz.core.Instance;
-import com.bubak.put.ptsz.core.Task;
+import com.bubak.put.ptsz.core.config.FileConfig;
+import com.bubak.put.ptsz.core.model.Instance;
 import com.bubak.put.ptsz.file.saver.FileSaver;
+import com.bubak.put.ptsz.file.util.Util;
+import com.bubak.put.ptsz.generator.instance.InstanceGenerator;
 
 import java.io.IOException;
-import java.util.Comparator;
 
 public class Generator {
     public static void main(String[] args) {
@@ -13,14 +14,18 @@ public class Generator {
         FileSaver fileSaver = new FileSaver();
 
         for (int i = 1; i <= 10; i++) {
-            int tasksQuantity = 50 * i;
-            Instance instance = instanceGenerator.generate(tasksQuantity);
-            instance.getTasks().sort(Comparator.comparingInt(Task::getReadyTime));
+            int tasksNumber = 50 * i;
+            Instance instance = instanceGenerator.generate(tasksNumber);
             try {
-                fileSaver.saveInstance(instance, String.format("instance_%d.txt", tasksQuantity));
+                fileSaver.saveInstance(instance, prepareFilePath(tasksNumber));
             } catch (IOException e) {
                 throw new IllegalStateException(e);
             }
         }
+    }
+
+    private static String prepareFilePath(int instanceSize) {
+        return FileConfig.INSTANCES_FOLDER + Util.prepareFileName(FileConfig.INSTANCE_FILE_PREFIX, "132197",
+                instanceSize);
     }
 }
