@@ -3,7 +3,7 @@ package com.bubak.put.ptsz.generator;
 import com.bubak.put.ptsz.core.config.FileConfig;
 import com.bubak.put.ptsz.core.model.Instance;
 import com.bubak.put.ptsz.file.saver.FileSaver;
-import com.bubak.put.ptsz.file.util.Util;
+import com.bubak.put.ptsz.file.utils.FileUtils;
 import com.bubak.put.ptsz.generator.instance.InstanceGenerator;
 
 import java.io.IOException;
@@ -25,7 +25,7 @@ public class Generator {
     }
 
     private static String prepareFilePath(int instanceSize) {
-        return FileConfig.INSTANCES_FOLDER + Util.prepareFileName(FileConfig.INSTANCE_FILE_PREFIX, "132197",
+        return FileConfig.INSTANCES_FOLDER + FileUtils.prepareFileName(FileConfig.INSTANCE_FILE_PREFIX, "132197",
                 instanceSize);
     }
 }

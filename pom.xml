@@ -11,7 +11,7 @@
 
     <modules>
         <module>ptsz-core</module>
-        <module>ptsz-file-saver</module>
+        <module>ptsz-file-utils</module>
         <module>ptsz-generator</module>
         <module>ptsz-verifier</module>
     </modules>
@@ -31,7 +31,7 @@
             </dependency>
             <dependency>
                 <groupId>com.bubak.put.ptsz</groupId>
-                <artifactId>ptsz-file-saver</artifactId>
+                <artifactId>ptsz-file-utils</artifactId>
                 <version>1.0.0</version>
             </dependency>
             <dependency>
@@ -59,6 +59,11 @@
                 <artifactId>junit-jupiter-api</artifactId>
                 <version>5.3.2</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.9</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

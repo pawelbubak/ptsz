@@ -14,6 +14,7 @@ import java.util.List;
 public class Solution {
     private List<Machine> machines = new ArrayList<>();
     private int delay;
+    private double calculationTime;
 
     public void calculateDelay() {
         delay = getTasksSchedulingDelay();
@@ -48,6 +49,6 @@ public class Solution {
     }
 
     public Machine getLowLoadedMachine() {
-        return machines.stream().min(Comparator.comparingInt(Machine::getTasksSchedulingDelay)).orElse(null);
+        return machines.stream().min(Comparator.comparingLong(Machine::getLastEndTime)).orElse(null);
     }
 }

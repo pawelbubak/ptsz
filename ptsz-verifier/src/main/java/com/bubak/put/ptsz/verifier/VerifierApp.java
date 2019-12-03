@@ -5,9 +5,8 @@ import com.bubak.put.ptsz.core.model.*;
 import com.bubak.put.ptsz.file.reader.InstanceReader;
 import com.bubak.put.ptsz.file.reader.SolutionReader;
 import com.bubak.put.ptsz.file.saver.FileSaver;
-import com.bubak.put.ptsz.file.util.Util;
-import com.bubak.put.ptsz.generator.algorithm.NaiveAlgorithm;
-import com.bubak.put.ptsz.generator.algorithm.SimpleSortAlgorithm;
+import com.bubak.put.ptsz.file.utils.FileUtils;
+import com.bubak.put.ptsz.generator.algorithm.algorithms.NaiveAlgorithm;
 import com.bubak.put.ptsz.generator.solution.SolutionGenerator;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,7 +17,6 @@ public class VerifierApp {
     private static String INDEX = "132197";
 
     public static void main(String[] args) throws IOException {
-
         VerifierApp verifier = new VerifierApp();
         Statistics statistics = new Statistics(INDEX);
         for (int i = 1; i < 11; i++) {
@@ -45,7 +43,7 @@ public class VerifierApp {
         String path = preparePathToInstanceFile(index, instanceSize);
         InstanceReader reader = new InstanceReader();
         try {
-            return reader.read(path);
+            return InstanceReader.read(path);
         } catch (IOException e) {
             String message = String.format("Unable to open instance file [%s].", path);
             log.error(message, e);
@@ -77,7 +75,7 @@ public class VerifierApp {
     }
 
     private String preparePathToInstanceFile(String index, int instanceSize) {
-        return FileConfig.INSTANCES_FOLDER + Util.prepareFileName(FileConfig.INSTANCE_FILE_PREFIX, index,
+        return FileConfig.INSTANCES_FOLDER + FileUtils.prepareFileName(FileConfig.INSTANCE_FILE_PREFIX, index,
                 instanceSize);
     }
 
@@ -89,8 +87,8 @@ public class VerifierApp {
         Problem problem = new Problem(instance, 4);
 
         SolutionGenerator generator = new SolutionGenerator();
-//        generator.setAlgorithm(new NaiveAlgorithm());
-        generator.setAlgorithm(new SimpleSortAlgorithm());
+        generator.setAlgorithm(new NaiveAlgorithm());
+//        generator.setAlgorithm(new SimpleSortAlgorithm());
         Solution solution = generator.generateSolution(problem);
 
         FileSaver fileSaver = new FileSaver();
@@ -98,6 +96,6 @@ public class VerifierApp {
     }
 
     private String prepareSolutionFileName(String index, int instanceSize) {
-        return Util.prepareFileName(FileConfig.SOLUTION_FILE_PREFIX, index, instanceSize);
+        return FileUtils.prepareFileName(FileConfig.SOLUTION_FILE_PREFIX, index, instanceSize);
     }
 }

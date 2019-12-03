@@ -13,10 +13,12 @@ import java.util.List;
 @AllArgsConstructor
 public class Machine {
     List<Task> tasks = new ArrayList<>();
+    long lastEndTime = 0;
 
     public void addTask(Task task) {
         if (tasks != null) {
             tasks.add(task);
+            calculateNewEndTime(task);
         }
     }
 
@@ -32,5 +34,9 @@ public class Machine {
             schedulingDelay += Math.max(0, processingEndTime - task.getDueDate());
         }
         return schedulingDelay;
+    }
+
+    private void calculateNewEndTime(Task task){
+        lastEndTime = Math.max(lastEndTime, task.getReadyTime()) + task.getProcessingTime();
     }
 }
