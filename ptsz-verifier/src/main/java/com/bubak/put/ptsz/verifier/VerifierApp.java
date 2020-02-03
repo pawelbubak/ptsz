@@ -6,7 +6,7 @@ import com.bubak.put.ptsz.file.reader.InstanceReader;
 import com.bubak.put.ptsz.file.reader.SolutionReader;
 import com.bubak.put.ptsz.file.saver.FileSaver;
 import com.bubak.put.ptsz.file.utils.FileUtils;
-import com.bubak.put.ptsz.generator.algorithm.algorithms.NaiveAlgorithm;
+import com.bubak.put.ptsz.generator.algorithm.list.NaiveAlgorithm;
 import com.bubak.put.ptsz.generator.solution.SolutionGenerator;
 import lombok.extern.slf4j.Slf4j;
 

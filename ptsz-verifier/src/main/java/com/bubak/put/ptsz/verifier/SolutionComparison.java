@@ -6,18 +6,21 @@ import com.bubak.put.ptsz.generator.algorithm.AlgorithmType;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
 public class SolutionComparison {
-    private final static AlgorithmType FIRST_ALGORITHM_TYPE = AlgorithmType.NAIVE;
-    private final static AlgorithmType SECOND_ALGORITHM_TYPE = AlgorithmType.A_SORT;
+    private final static AlgorithmType FIRST_ALGORITHM_TYPE = AlgorithmType.ADVANCED;
+    private final static AlgorithmType SECOND_ALGORITHM_TYPE = AlgorithmType.GENETIC;
+    private final static int MEASUREMENT_ITERATIONS_NUMBER = 1;
     private final static boolean SAVE_STATISTICS = true;
 
     public static void main(String[] args) {
 //        List<String> studentsIndexes = FileUtils.getStudentsIndexes();
         List<String> studentsIndexes = Arrays.asList("132225", "132214", "132219", "132195", "125342", "132209",
                 "132207", "132221", "127173", "132349", "132348", "132197", "132319", "132215", "127329", "132280", "126151", "132192");
+//        List<String> studentsIndexes = Collections.singletonList("132197");
         for (String studentsIndex : studentsIndexes) {
             generateStudentSolutions(studentsIndex);
         }
@@ -30,15 +33,18 @@ public class SolutionComparison {
             String fileName = FileUtils.prepareFileName("in", studentsIndex, size);
             String path = "instances/" + fileName;
             double time = 0;
-            for (int i = 0; i < 500; i++) {
+            for (int i = 0; i < MEASUREMENT_ITERATIONS_NUMBER; i++) {
                 firstSolution = SolutionGenerator.generateStudentSolution(path, FIRST_ALGORITHM_TYPE);
                 secondSolution = SolutionGenerator.generateStudentSolution(path, SECOND_ALGORITHM_TYPE);
                 time += secondSolution.getCalculationTime();
             }
-            secondSolution.setCalculationTime(time / 500);
+            secondSolution.setCalculationTime(time / MEASUREMENT_ITERATIONS_NUMBER);
             fileName = FileUtils.prepareFileName("st", studentsIndex, size);
             path = "statistics/" + fileName;
             saveStatisticsIfNecessary(firstSolution, secondSolution, path);
+            fileName = FileUtils.prepareFileName("out", studentsIndex, size);
+            path = "solutions/" + fileName;
+            SolutionGenerator.saveSolutionIfNecessary(secondSolution, path);
         }
     }
 

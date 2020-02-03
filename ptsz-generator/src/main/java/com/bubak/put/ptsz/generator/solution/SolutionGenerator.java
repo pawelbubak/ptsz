@@ -3,7 +3,7 @@ package com.bubak.put.ptsz.generator.solution;
 import com.bubak.put.ptsz.core.model.Problem;
 import com.bubak.put.ptsz.core.model.Solution;
 import com.bubak.put.ptsz.generator.algorithm.Algorithm;
-import com.bubak.put.ptsz.generator.algorithm.algorithms.NaiveAlgorithm;
+import com.bubak.put.ptsz.generator.algorithm.list.NaiveAlgorithm;
 import com.sun.istack.internal.NotNull;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,7 +22,7 @@ public class SolutionGenerator {
 
     public Solution generateSolution(Problem problem) {
         log.info("Starting solution generation..");
-        Solution solution = algorithm.solve(problem);
+        Solution solution = algorithm.prepare(problem).run();
         log.info("Solution generation finished");
         return solution;
     }

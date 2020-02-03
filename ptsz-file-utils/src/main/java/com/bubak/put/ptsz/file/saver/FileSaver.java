@@ -31,7 +31,7 @@ public class FileSaver {
     }
 
     public void saveStatistics(Statistics statistics) throws IOException {
-        String path = "statistics/st_" + statistics.getOwner() + "_naive." + FileConfig.DEFAULT_EXTENSION;
+        String path = "statistics/st_" + statistics.getOwner() + "." + FileConfig.DEFAULT_EXTENSION;
         prepareDirectory(path);
         PrintWriter writer = new PrintWriter(path, String.valueOf(StandardCharsets.UTF_8));
         statistics.getStatistics().forEach(statistic -> writer.println(statistic.getInstanceSize() + " " + statistic.getExpectedResult() + " " + statistic.getResult() + " " + (statistic.isCorrect() ? "OK" : "NOT OK")));

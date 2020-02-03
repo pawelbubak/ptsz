@@ -18,7 +18,7 @@ import java.util.List;
 
 @Slf4j
 public class SolutionGenerator {
-    private final static AlgorithmType ALGORITHM_TYPE = AlgorithmType.A_SORT;
+    private final static AlgorithmType ALGORITHM_TYPE = AlgorithmType.GENETIC;
     private final static boolean SAVE_SOLUTION = true;
     private final static int MACHINES_NUMBER = 4;
 
@@ -42,14 +42,14 @@ public class SolutionGenerator {
         }
     }
 
-    public static Solution generateStudentSolution(String pathToInstance, AlgorithmType algorithmType) {
+    static Solution generateStudentSolution(String pathToInstance, AlgorithmType algorithmType) {
         Solution solution = null;
         try {
             Instance instance = InstanceReader.read(pathToInstance);
             Algorithm algorithm = AlgorithmFactory.createAlgorithm(algorithmType);
             StopWatch watch = new StopWatch();
             watch.start();
-            solution = algorithm.solve(new Problem(instance, MACHINES_NUMBER));
+            solution = algorithm.prepare(new Problem(instance, MACHINES_NUMBER)).run();
             watch.stop();
             solution.setCalculationTime(watch.getNanoTime() / 1000.0);
             log.debug("Instance[{}]: k={}, t={}", instance.getTasksQuantity(), solution.getTasksSchedulingDelay(),
@@ -60,7 +60,7 @@ public class SolutionGenerator {
         return solution;
     }
 
-    private static void saveSolutionIfNecessary(Solution solution, String pathToSolution) {
+    static void saveSolutionIfNecessary(Solution solution, String pathToSolution) {
         if (SAVE_SOLUTION && solution != null) {
             FileSaver fileSaver = new FileSaver();
             try {

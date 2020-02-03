@@ -1,24 +1,17 @@
-package com.bubak.put.ptsz.generator.algorithm.algorithms;
+package com.bubak.put.ptsz.generator.algorithm.list;
 
-import com.bubak.put.ptsz.core.model.*;
-import com.bubak.put.ptsz.generator.algorithm.Algorithm;
+import com.bubak.put.ptsz.core.model.Machine;
+import com.bubak.put.ptsz.core.model.Task;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class AdvancedSortAlgorithm implements Algorithm {
-    private Solution solution;
-
+public class AdvancedSortAlgorithm extends ListAlgorithm {
     @Override
-    public Solution solve(Problem problem) {
-        solution = problem.prepareSolution();
-        assignTasks(problem.getInstance());
-        solution.calculateDelay();
-        return solution;
-    }
-
-    private void assignTasks(Instance instance) {
-        List<Task> tasks = instance.getTasks();
+    protected void assignTasks(boolean generateList) {
+        List<Task> tasks = new ArrayList<>(instance.getTasks());
+        this.tasks = new ArrayList<>();
         while (!tasks.isEmpty()) {
             Machine machine = solution.getLowLoadedMachine();
             Task task = tasks.stream()
@@ -37,6 +30,9 @@ public class AdvancedSortAlgorithm implements Algorithm {
                     })).orElse(null);
             machine.addTask(task);
             tasks.remove(task);
+            if (generateList) {
+                this.tasks.add(task);
+            }
         }
     }
 }

@@ -1,33 +1,25 @@
-package com.bubak.put.ptsz.generator.algorithm.algorithms;
+package com.bubak.put.ptsz.generator.algorithm.list;
 
 import com.bubak.put.ptsz.core.model.Instance;
-import com.bubak.put.ptsz.core.model.Problem;
-import com.bubak.put.ptsz.core.model.Solution;
+import com.bubak.put.ptsz.core.model.Machine;
 import com.bubak.put.ptsz.core.model.Task;
-import com.bubak.put.ptsz.generator.algorithm.Algorithm;
 
 import java.util.List;
 
-public class NaiveAlgorithm implements Algorithm {
-    private Solution solution;
-
-    @Override
-    public Solution solve(Problem problem) {
-        solution = problem.prepareSolution();
-        assignTasks(problem.getInstance());
-        solution.calculateDelay();
-        return solution;
-    }
-
-    private void assignTasks(Instance instance) {
+public class NaiveAlgorithm extends ListAlgorithm {
+    protected void assignTasks(boolean generateList) {
         for (int i = 0; i < solution.getMachinesNumber(); i++) {
             assignTasksOnMachine(i, instance);
+        }
+        if (generateList) {
+            this.tasks = instance.getTasks();
         }
     }
 
     private void assignTasksOnMachine(int machineNumber, Instance instance) {
         List<Task> tasks = prepareTasksForMachine(machineNumber, instance);
-        solution.getMachine(machineNumber).setTasks(tasks);
+        Machine machine = solution.getMachine(machineNumber);
+        tasks.forEach(machine::addTask);
     }
 
     private List<Task> prepareTasksForMachine(int machineNumber, Instance instance) {
